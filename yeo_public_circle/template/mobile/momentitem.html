@@ -1,0 +1,38 @@
+<li data-album-id="{$item['album_id']}">
+    <div class="po-avt-wrap">
+        <img class="po-avt data-avt" src="{$item['avatar']}">
+    </div>
+    <div class="po-cmt">
+        <div class="po-hd">
+            <p class="po-name"><span class="data-name">{$item['nickname']}</span></p>
+            <div class="post" data-album-id="{$item['album_id']}">
+                <p>{$item['moment']}
+                    <?php if(isset($_W['circle_admin']) && $_W['circle_admin']==1){?>
+                    <a href="javascript:void(0)" class="js-review"><?php if($item['status']==1){echo "已通过";}elseif($item['status']==2){echo "未通过";}else{ echo "待审核";} ?></a>
+                    <?php }elseif( $_W['fans']['uid'] ==$item['uid']){ ?>
+                        <a href="javascript:void(0)"><?php if($item['status']==1){echo "已通过";}elseif($item['status']==2){echo "未通过";}else{ echo "待审核";} ?></a>
+                    <?php } ?>
+                </p>
+                <p>
+                    {loop $item['attachment'] $photo}
+                    <img class="list-img" src=" /attachment/{$photo['aurl']}" data-aid="{$photo['aid']}" style="height: 80px;">
+                    {/loop}
+                </p>
+            </div>
+            <p class="time">{$item['timeline']}</p><a href="javascript:void(0);" class="controlbtn" data-album-id="{$item['album_id']}"><img class="c-icon" src="../addons/yeo_public_circle/resource/images/c.png"></a>
+            <div class="controlbar" style="display:none;" data-album-id="{$item['album_id']}" data-uid="{$item['uid']}" data-like="{$item['is_like']}"  data-status="{$item['status']}">
+                <a href="javascript:void(0)" class="js-like"><?php if($item['is_like']==1){echo "取消";}else{ echo "赞";} ?></a>
+                <span class="split"> | </span>
+                <a href="javascript:void(0)" class="js-comment">评论</a>
+            </div>
+            
+        </div>
+        <div class="r"></div>
+        <div class="cmt-wrap">
+            <div class="like"><img src="../addons/yeo_public_circle/resource/images/l.png">{$item['likeusers']}</div>
+            <div class="cmt-list" id="comment-{$item['album_id']}"data-album-id="{$item['album_id']}">
+                 {template "commentlist"}
+            </div>
+        </div>
+    </div>
+</li>

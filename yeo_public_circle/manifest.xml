@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.we7.cc" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[公众号粉丝圈]]></name>
+		<identifie><![CDATA[yeo_public_circle]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[customer]]></type>
+		<ability><![CDATA[针对公众号粉丝的朋友圈]]></ability>
+		<description><![CDATA[功能介绍： 公众号粉丝间不能互动，此模块是一个高仿朋友圈界面的粉丝交流系统。]]></description>
+		<author><![CDATA[joechow]]></author>
+		<url><![CDATA[http://www.cdbs.com.cn/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="入口设置" do="Index" />
+		</cover>
+		<menu>
+			<entry title="粉丝圈管理" do="Moments" />
+			<entry title="粉丝管理" do="Fans" />
+		</menu>
+		<home>
+			<entry title="公众号粉丝圈" do="Index" /><!--微站导航-->
+		</home>
+		<profile>
+			<entry title="我的相册" do="Album" /><!--微站个人中心导航-->
+		</profile>
+	</bindings>
+
+	<!--<permissions>
+		<menu>
+			<entry title="管理主题" do="Index" state="" direct="false" />
+		</menu>
+			<entry title="通过审核" do="yeo_ public_circle_ALLOW" />
+			<entry title="拒绝审核" do="yeo_ public_circle_DENY" />
+	</permissions>-->
+	<install><![CDATA[
+CREATE TABLE IF NOT EXISTS `ims_yeo_public_circle_admin` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL,
+  `uid` int(11) NOT NULL COMMENT '用户id',
+  `level` int(11) NOT NULL COMMENT '1.审查人员,2官方发布人员',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='管理员表' AUTO_INCREMENT=2 ;
+
+
+CREATE TABLE IF NOT EXISTS `ims_yeo_public_circle_albums` (
+  `album_id` int(11) NOT NULL AUTO_INCREMENT,
+  `moment` varchar(500) CHARACTER SET utf8 NOT NULL COMMENT '发布的文本',
+  `uniacid` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `from_user` varchar(50) CHARACTER SET utf8 NOT NULL COMMENT 'openid',
+  `create_at` datetime NOT NULL,
+  `status` int(11) NOT NULL,
+  `review_uid` int(11) NOT NULL COMMENT '审核人员id',
+  PRIMARY KEY (`album_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COMMENT='粉丝圈信息' AUTO_INCREMENT=80 ;
+
+
+CREATE TABLE IF NOT EXISTS `ims_yeo_public_circle_attachment` (
+  `aid` int(11) NOT NULL AUTO_INCREMENT,
+  `aurl` varchar(200) NOT NULL,
+  `album_id` int(11) NOT NULL,
+  `uniacid` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `atype` int(11) NOT NULL COMMENT '附件类型：1图片、2音频、3小视频、4其他',
+  `create_at` datetime NOT NULL,
+  PRIMARY KEY (`aid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='粉丝圈信息附件' AUTO_INCREMENT=30 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yeo_public_circle_comment` (
+  `comment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL,
+  `album_id` int(11) NOT NULL,
+  `uid` int(11) NOT NULL COMMENT '回复用户表，直接回复主题为0',
+  `comment` varchar(500) CHARACTER SET utf8 NOT NULL,
+  `to_uid` int(11) NOT NULL COMMENT '被回复人',
+  `create_at` datetime NOT NULL,
+  `status` int(11) NOT NULL COMMENT '0,未审核，1，通过，2拒绝。',
+  `review_uid` int(11) NOT NULL COMMENT '审核人员 ID',
+  PRIMARY KEY (`comment_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 COMMENT='评论表' AUTO_INCREMENT=22 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yeo_public_circle_like` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL,
+  `album_id` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `create_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='点赞表' AUTO_INCREMENT=37 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yeo_public_circle_review_logs` (
+  `log_id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` int(11) NOT NULL COMMENT '1.主题，2评论',
+  `item_id` int(11) NOT NULL,
+  `review_uid` int(11) NOT NULL,
+  `create_at` datetime NOT NULL COMMENT '审查时间',
+  `review_result` int(11) NOT NULL,
+  PRIMARY KEY (`log_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='审核日志表' AUTO_INCREMENT=16 ;
+
+		]]></install>
+	<uninstall><![CDATA[uninstall.php]]></uninstall>
+	<upgrade><![CDATA[update.php]]></upgrade>
+</manifest>

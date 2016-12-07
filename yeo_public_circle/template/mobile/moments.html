@@ -1,0 +1,60 @@
+
+                      <!-- Top Navbar-->
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="left sliding"><a href="index.php?i={php echo $_W['uniacid']}&c=entry&do=index&m=yeo_public_circle" class="icon-only  back link">返回</a></div>
+            <div class="center sliding">官方发布</div>
+            <div class="right"><a href="index.php?i={php echo $_W['uniacid']}&c=entry&do=new&m=yeo_public_circle" class="link icon-only js-new"><i class="icon iconfont">&#xe64f;</i></a> </div>
+          </div>
+        </div>
+          <!-- Index Page-->
+         <div class="pages ">
+          <div data-page="moments"  class="page navbar-fixed toolbar-fixed" >
+            <div class="page-content pull-to-refresh-content infinite-scroll  " >
+                 <!--page-content.start-->
+                <!-- 默认的下拉刷新层 -->
+                <div class="pull-to-refresh-layer">
+                  <div class="preloader"></div>
+                  <div class="pull-to-refresh-arrow"></div>
+                </div>
+               
+                <!-- 下面是正文 -->
+                <header>
+                    <img id="bg" src="../addons/yeo_public_circle/resource/images/bg.jpg">
+                    <p id="user-name" class="data-name">{php echo $_W['fans']['nickname'] } ID:{$_W['fans']['uid']}</p>
+                    <img id="avt" class="data-avt" src="{php echo $_W['fans']['headimgurl'] }" style="z-index:1;">
+                </header>
+                <div id="main">
+                    <div id="list"  style="background:#fff; margin-top:-5px;">
+                        <div class="list-block" >
+                        <ul>
+                            {loop $list $item}
+                             {template 'momentitem'}
+                            {/loop}
+                            
+                        </ul>
+                        </div>
+                        <div class="scroll-loading">loading</div>
+                    </div>
+
+
+                </div>
+                <!--page-content.end-->
+            </div>
+        
+          </div>
+
+
+
+      </div><!--end pages-->
+      <div class="toolbar" id="coment_bar" style="display:none;" ><!--Bottom Toolbar-->
+                    <!--<a href="javascript:void(0);" id="id_next_btn" class="button button-big button-fill color-orange js-goto">下一步</a>-->
+                    <div class="row" style="margin:8px;height:30px;">
+                        <div class="col-75"><input  type="text" class="comment_text"  placeholder="评论" style=" width:100%; height:25px;border:1px solid #ccc;" value="" ></div>
+                        <div class="col-25"><a class="button button-fill color-green js-send" href="javascript:void(0)">发表</a></div>
+                    </div>
+                    
+        </div>
+
+     </div>
+   

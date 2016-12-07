@@ -1,0 +1,134 @@
+{php $_W['page']['title'] = "路况朋友圈"}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>914路况大家报</title>
+    <meta name=description content="">
+    <meta name=keywords content="">
+    <meta charset=utf-8>
+    <meta http-equiv=X-UA-Compatible content=IE=edge>
+    <meta name=viewport content="width=device-width,initial-scale=1, minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui">
+    <meta name=format-detection content=telephone=no>
+    <meta name=apple-mobile-web-app-capable content=no>
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta http-equiv=cache-control content=max-age=0>
+    <meta http-equiv=cache-control content=no-cache>
+    <meta http-equiv=expires content=0>
+    <meta http-equiv=expires content="Tue, 01 Jan 1980 1:00:00 GMT">
+    <meta http-equiv=pragma content=no-cache>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <script src='http://res.wx.qq.com/open/js/jweixin-1.1.0.js' language='javascript'></script>
+
+
+    <link rel="stylesheet" href="../addons/yeo_public_circle/resource/css/framework7.ios.css">
+    <link rel="stylesheet" href="../addons/yeo_public_circle/resource/css/framework7.ios.colors.css">
+    <link rel="stylesheet" href="../addons/yeo_public_circle/resource/css/my-app.css">
+    <link rel="stylesheet" href="../addons/yeo_public_circle/resource/css/toast.css">
+    <link rel="stylesheet" href="../addons/yeo_public_circle/resource/css/app.css">
+    <link rel="stylesheet" href="../addons/yeo_public_circle/resource/css/emoji.css" >
+    <script type="text/javascript">
+        var weid=<?php  echo $_W['uniacid']?>;
+    </script>
+      <!-- Path to Framework7 Library JS-->
+
+    <!--<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=vlorKpt0mk7l9PkMUZ1jmtqC"></script>-->
+
+    <style type="text/css">
+            .scroll-loading{ text-align: center; color:#999;}
+            .list-block ul::before {
+                height:0px;
+            }
+            .controlbar{
+                margin:-20px 5px 0px 0px;
+                float: right;
+                width:160px; 
+                height:40px; border-radius:5px; background:#4d5154;color:#fff; line-height:40px; font-size:14px; position:relative; 
+                text-align:center;
+            }
+            .controlbar a,.controlbar a:hover{
+                color:#fff;
+            }
+            .controlbar span{ color:#666;}
+    </style>
+  </head> 
+  <body> 
+    <script type="text/javascript" src="../addons/yeo_public_circle/resource/js/framework7.min.js"></script>
+
+    <!-- Status bar overlay for fullscreen mode-->
+    <div class="statusbar-overlay"></div>
+    <!-- Panels overlay-->
+    <div class="panel-overlay"></div>
+
+    <!-- Views-->
+    <div class="views ">
+      <!-- Your main view, should have "view-main" class-->
+      <div class="view view-main ">
+        <!-- Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes-->
+
+                      <!-- Top Navbar-->
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="left sliding"><a href="index.php?i={php echo $_W['uniacid']}&c=entry&do=moments&m=yeo_public_circle" class="icon-only  link">官方</a></div>
+            <div class="center sliding">全部</div>
+            <div class="right"><a href="index.php?i={php echo $_W['uniacid']}&c=entry&do=new&m=yeo_public_circle" class="link icon-only js-new"> <i class="icon iconfont">&#xe64f;</i>拍照</a></div>
+          </div>
+        </div>
+          <!-- Index Page-->
+         <div class="pages ">
+          <div data-page="index"  class="page navbar-fixed toolbar-fixed" >
+            <div class="page-content pull-to-refresh-content infinite-scroll  " >
+                 <!--page-content.start-->
+                <!-- 默认的下拉刷新层 -->
+                <div class="pull-to-refresh-layer">
+                  <div class="preloader"></div>
+                  <div class="pull-to-refresh-arrow"></div>
+                </div>
+               
+                <!-- 下面是正文 -->
+                <header>
+                    <img id="bg" src="../addons/yeo_public_circle/resource/images/bg2.jpg">
+                    <p id="user-name" class="data-name">{php echo $_W['fans']['nickname'] }</p>
+                    <img id="avt" class="data-avt" src="{php echo $_W['fans']['headimgurl'] }" style="z-index:1;">
+                </header>
+                <div id="main">
+                    <div id="list"  style="background:#fff; margin-top:-5px;">
+                        <div class="list-block" >
+                        <ul>
+                            {loop $list $item}
+                             {template 'momentitem'}
+                            {/loop}
+                            
+                        </ul>
+                        </div>
+                        <div class="scroll-loading">loading</div>
+                    </div>
+
+
+                </div>
+                <!--page-content.end-->
+            </div>
+        
+          </div>
+
+
+
+      </div><!--end pages-->
+      <div class="toolbar" id="coment_bar" style="display:none;" ><!--Bottom Toolbar-->
+                    <!--<a href="javascript:void(0);" id="id_next_btn" class="button button-big button-fill color-orange js-goto">下一步</a>-->
+                    <div class="row" style="margin:8px;height:30px;">
+                        <div class="col-75"><input  type="text" class="comment_text"  placeholder="评论" style=" width:100%; height:25px;border:1px solid #ccc;" value="" ></div>
+                        <div class="col-25"><a class="button button-fill color-green js-send" href="javascript:void(0)">发表</a></div>
+                    </div>
+                    
+        </div>
+
+     </div>
+   </div>
+    <!-- Path to your app js-->
+    <script type="text/javascript" src="../addons/yeo_public_circle/resource/js/toast.js"></script>
+    <script type="text/javascript" src="../addons/yeo_public_circle/resource/js/exif.js"></script>
+    <script type="text/javascript" src="../addons/yeo_public_circle/resource/js/my-app.js"></script>
+
+  </body>
+</html>

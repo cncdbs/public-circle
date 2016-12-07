@@ -1,0 +1,12 @@
+			  <p data-cid="{$comment['comment_id']}" >{if $comment['uid'] ==$comment['to_uid'] }
+                     <span data-uid="{$comment['uid']}" data-cid="{$comment['comment_id']}">{$comment['nickname']}</span>
+                     {else}
+                     <span class="data-name" data-uid="{$comment['uid']}" >{$comment['nickname']}</span>回复<span data-uid="{$comment['to_uid']}">{$comment['to_nickname']}</span><span>：</span>
+                     {/if}
+                     {$comment['comment']}
+                     <?php if(isset($_W['circle_admin']) && $_W['circle_admin']==1){?>
+                     	<a href="javascript:void(0);" class="c-status js-review-comment"><?php if($comment['status']==1){echo "已通过";}elseif($comment['status']==2){echo "未通过";}else{ echo "待审核";} ?></a>
+                     <?php }elseif($_W['fans']['uid'] == $comment['uid'] ){?>
+                     	<a href="javascript:void(0);" class="c-status "><?php if($comment['status']==1){echo "";}elseif($comment['status']==2){echo "未通过";}else{ echo "待审核";} ?></a>
+                     <?php }?>
+                   </p>

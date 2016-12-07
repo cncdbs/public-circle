@@ -1,0 +1,61 @@
+
+                      <!-- Top Navbar-->
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="left sliding"><a href="#" class="cancel">取消</a></div>
+            <div class="center sliding">发表</div>
+            <div class="right"><a href="javascript:void(0);" class="link icon-only js-post"> <i class="icon iconfont">&#xe64f;</i>发送</a></div>
+          </div>
+        </div>
+         
+          <!-- Index Page-->
+         <div class="pages ">
+          <div data-page="newmoment"  class="page navbar-fixed toolbar-fixed" >
+            <div class="page-content">
+                <!--page-content.start-->
+                <form action="index.php?i={php echo $_W['uniacid']}&c=entry&do=post&m=yeo_public_circle" method="post" enctype="multipart/form-data" name="upload_form" id="upload_form">
+                  <div class="list-block" style="margin-top:0px;">
+                    <ul>
+                      <li class="align-top"  >
+                        <div class="item-content">
+                          <div class="item-inner">
+                            <div class="item-input">
+                               <textarea name="posttext" placeholder="这一刻的想法..."></textarea>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                    <div class="photo_select post" style="background:#fff; padding-left:20px;">
+                        
+                            <div class="imglist">
+                              <!--<img class="list-img" src="../addons/yeo_public_circle/resource/images/jt1.jpg" style="height: 80px;">
+                              <img class="list-img" src="../addons/yeo_public_circle/resource/images/yt3.jpg" style="height: 80px;">
+                              <img class="list-img data-avt" src="../addons/yeo_public_circle/resource/images/0.jpg" style="height: 80px;">
+                              <img class="list-img" src="../addons/yeo_public_circle/resource/images/jt1.jpg" style="height: 80px;">
+                              <img class="list-img" src="../addons/yeo_public_circle/resource/images/yt3.jpg" style="height: 80px;">
+                              <img class="list-img data-avt" src="../addons/yeo_public_circle/resource/images/0.jpg" style="height: 80px;">
+                              <img class="list-img" src="../addons/yeo_public_circle/resource/images/jt1.jpg" style="height: 80px;">
+                              <img class="list-img" src="../addons/yeo_public_circle/resource/images/yt3.jpg" style="height: 80px;">-->
+                              </div>
+                              <style type="text/css">
+                              .addimg {  cursor: pointer;  display: block; float:left;width: 80px; height: 80px; border: 0px solid #f00; margin-top: 10px; }
+                              .addimg img{float: left; margin-top: -10px;height: 80px; }
+                              .addimg .upload-h5-file { position: absolute; margin-left: -80px; height: 80px;width: 80px; overflow:hidden;opacity: 0.0;  z-index: 3}
+                              </style>
+                              <div  class="addimg"><img  src="../addons/yeo_public_circle/resource/images/addimg.png" ><input class="upload-h5-file" type="file" name="file[]" capture="camera" accept="image/*" multiple="multiple"></div>
+                       
+                    </div>
+                  </div>
+                </form>
+                <!--page-content.end-->
+            </div>
+        
+          </div>
+
+
+
+      </div><!--end pages-->
+     
+
+     
