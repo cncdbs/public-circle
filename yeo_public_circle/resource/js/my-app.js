@@ -180,6 +180,20 @@ function isWeiXin(){
         event.stopPropagation();
     }
 
+    var getTTShandler=function () {
+        $$this=$$(this);
+        ttsText=$$this.text();
+        //album_id=$$this.parent().parent().attr('data-album-id');
+
+        //myApp.alert(ttsText);
+        /*$$.get('index.php?i='+weid+'&c=entry&do=tts&m=yeo_public_circle', {text: ttsText,album_id : album_id}, function (data) {
+            //更改状态
+            $$this.next().html(data);
+        });*/
+        play_text(ttsText);
+        //play_mary();
+    }
+
     //取消操作绑定
     function controlunbindevent()
     {
@@ -193,6 +207,7 @@ function isWeiXin(){
         $$('.list-img').off('click', pickphotoshandler);
         $$('.controlbtn').off('click', controlbarhandler);
         $$('.js-review-comment').off('click',reviewcommenthandler);
+        $$('.js-tts').off('click',getTTShandler);
     }
     //操作绑定事件
     function controlbindevent()
@@ -210,6 +225,7 @@ function isWeiXin(){
         //点赞评论条按钮
         $$('.controlbtn').on('click', controlbarhandler);
         $$('.js-review-comment').on('click',reviewcommenthandler);
+        $$('.js-tts').on('click',getTTShandler);
     }
 //====================================
 // Initialize your app

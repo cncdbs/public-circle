@@ -58,16 +58,15 @@ class Yeo_public_circleModuleSite extends WeModuleSite {
 
     public function __construct()
     {
-
         global $_W, $_GPC;
          $this->_checkAuth();
-         
+
          if(empty($_W['fans']['uid'])){
             message('微信授权失败,请关注【'.$_W['account']['name'].'】公众号才可继续' ,'http://mp.weixin.qq.com/s?__biz=MjM5MjA2NjM2Mg==&mid=2651440517&idx=3&sn=e26fb5d5069dbec4ee96cc49032489a3&chksm=bd569bd08a2112c652fb2f6ba7aafb05ad401c63b6738da4770c3968b8fb664afa568e4f3dd3&scene=0#wechat_redirect','error');
          }
          //print_r($_W['fans']['uid']);
         // print_r($_W['member']);
-       
+
         $info = pdo_fetch("SELECT * FROM " . tablename('yeo_public_circle_admin') . "where uniacid = '{$_W['uniacid']}'  and uid='{$_W['fans']['uid']}' ");
         if(! empty($info)){   //我是管理员
             $_W['circle_admin']=1;
@@ -481,7 +480,50 @@ class Yeo_public_circleModuleSite extends WeModuleSite {
        //上传完毕，调用粉丝圈首页。【如果是ajax上传，则直接back】
       header("Location:index.php?i=".$_W['uniacid']."&c=entry&do=index&m=yeo_public_circle");
     }
- 
 
+
+    function  doMobileTTS()
+    {
+        global $_GPC, $_W;
+        $uniacid = intval($_W['uniacid']);
+        $text=urlencode($_GPC['text']);
+        $album_id=intval($_GPC['album_id']);
+
+        $albums=pdo_fetch("SELECT * FROM " . tablename('yeo_public_circle_albums') . " WHERE   album_id='{$album_id}' and uniacid = '{$_W['uniacid']}' ");
+        if(! empty($albums['tts'])){
+
+            $data = json_decode($albums['tts'],true);
+            $wavdata = $data['retData'];
+        }else{
+            $ch = curl_init();
+            //$text='%E8%AF%AD%E9%9F%B3%E5%90%88%E6%88%90%E6%8A%80%E6%9C%AF';
+            $url = 'http://apis.baidu.com/apistore/baidutts/tts?text='.$text.'&ctp=1&per=2';
+            $header = array(
+                'apikey: bd724d4272d7de07a1a406e9d2567200',
+            );
+            // 添加apikey到header
+            curl_setopt($ch, CURLOPT_HTTPHEADER  , $header);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            // 执行HTTP请求
+            curl_setopt($ch , CURLOPT_URL , $url);
+            $res = curl_exec($ch);
+            $data=json_decode($res);
+            //var_dump(json_decode($res));
+            if($data->retMsg=='success') {
+                $wavdata = $data->retData;
+                $dbdata=array(
+                    'tts' => $res,
+                );
+                $re=pdo_update('yeo_public_circle_albums', $dbdata,array('album_id' => $album_id));
+            }
+        }
+        if($wavdata){
+            echo '<br><audio controls="controls" autobuffer="autobuffer" autoplay="autoplay"> 
+<source src="data:audio/wav;base64,'.$wavdata.'" /> </audio> 
+';
+        }
+
+
+    }
 
 }

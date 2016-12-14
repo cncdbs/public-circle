@@ -6,7 +6,7 @@
         <div class="po-hd">
             <p class="po-name"><span class="data-name">{$item['nickname']}</span></p>
             <div class="post" data-album-id="{$item['album_id']}">
-                <p>{$item['moment']}
+                <p><span class="js-tts">{$item['moment']}</span>
                     <?php if(isset($_W['circle_admin']) && $_W['circle_admin']==1){?>
                     <a href="javascript:void(0)" class="js-review"><?php if($item['status']==1){echo "已通过";}elseif($item['status']==2){echo "未通过";}else{ echo "待审核";} ?></a>
                     <?php }elseif( $_W['fans']['uid'] ==$item['uid']){ ?>
@@ -24,6 +24,8 @@
                 <a href="javascript:void(0)" class="js-like"><?php if($item['is_like']==1){echo "取消";}else{ echo "赞";} ?></a>
                 <span class="split"> | </span>
                 <a href="javascript:void(0)" class="js-comment">评论</a>
+                <span class="split"> | </span>
+                <span href="javascript:void(0)"  onclick="alert('test')">听</span>
             </div>
             
         </div>
